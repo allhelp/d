@@ -1,0 +1,239 @@
+﻿<html>
+
+ <head>
+
+  <title>聊天室</title>
+
+  <meta charset="utf-8"/>
+
+  <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+  <link href="./css/style.css" rel="stylesheet"/>
+
+  <script>
+
+   var maxid = 0;
+
+   function showmessage() {
+
+    //创建ajax对象
+
+    var xhr = new XMLHttpRequest();
+
+    //监听
+
+    xhr.onreadystatechange = function () {
+
+     if (xhr.readyState === 4) {
+
+      eval("var info=" + xhr.responseText);
+
+      var text = "";
+
+      for (var i = 0; i < info.length; i++)
+
+      {
+
+       text += "<div class='alert alert-success'>" +
+
+         "<span class='name'>" + info[i].send + ":</span>" +
+
+         "<span class='message'>" + info[i].content + "</span>" +
+
+         "<span>(" + info[i].time + ")</span>" +
+
+         "</div>";
+
+       maxid = info[i].id;
+
+      }
+
+      var old = document.getElementById("msg").innerHTML;
+
+      document.getElementById("msg").innerHTML = old + text;
+
+      document.getElementById("msg").scrollTop = document.getElementById("msg").scrollHeight;
+
+     }
+
+    };
+
+    //初始化
+
+    xhr.open("get", "./action.php?maxid=" + maxid);
+
+    //发送
+
+    xhr.send();
+
+   }
+
+   $(document).ready(
+
+     function ()
+
+     {
+
+      showmessage()
+
+      self.setInterval("showmessage()", 2000);
+
+     }
+
+   );
+
+   function send() {
+
+    var postData ="content="+document.getElementById('content').value;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "./add.php", true);
+
+    //一定要写头信息不然服务器接收不到
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+
+     var XMLHttpReq = xhr;
+
+     if (XMLHttpReq.readyState == 4) {
+
+      if (XMLHttpReq.status == 200) {
+
+       document.getElementById('content').value="";
+
+      }
+
+     }
+
+    };
+
+    xhr.send(postData);
+
+   }
+
+  </script>
+
+ </head>
+
+ <body>
+
+  <div class="panel panel-default" id="main">
+
+   <!--聊天室名字-->
+
+   <div class="panel-heading">
+
+    <h3 class="panel-title">
+
+     匿名者聊天室
+
+    </h3>
+
+   </div>
+
+   <!--聊天室名字-->
+
+   <!--聊天室消息框-->
+
+   <div class="panel-body ">
+
+    <div class="well no-bottom ">
+
+     <!--     消息框样式-->
+
+     <!--
+
+     <div class="alert alert-success">成功！很好地完成了提交。</div>
+
+     <div class="alert alert-info">信息！请注意这个信息。</div>
+
+     <div class="alert alert-warning">警告！请不要提交。</div>
+
+     <div class="alert alert-danger">错误！请进行一些更改。</div>
+
+     -->
+
+     <div id="msg" class="showmessage">
+
+     </div>
+
+     <!--聊天室消息框-->
+
+     <div class="well" >
+
+      <form role="form">
+
+       <div class="form-group">
+
+        <label for="name">发送消息</label>
+
+        <textarea class="form-control" id="content" name="content"
+
+           style="resize: none;font-family: Microsoft YaHei;" rows="3" >
+
+        </textarea>
+
+       </div>
+
+       <div style="text-align: right">
+
+        <button type="button" class="btn btn-primary" onclick="send()">
+
+         <span class="glyphicon glyphicon-envelope"></span>
+
+         发送
+
+        </button>
+
+       </div>
+
+      </form>
+
+     </div>
+
+     <!--聊天室发送框-->
+
+    </div>
+
+   </div>
+
+  </div>
+
+ </body>
+
+</html>
+
+2. action.php 
+
+<?php
+
+$link = mysqli_connect('localhost', 'root', '123', 'test');
+
+mysqli_query($link, 'set names utf8');
+
+$info= array();
+
+header("Content-type: text/html; charset=utf-8");
+
+$id=$_GET['maxid'];
+
+$data = mysqli_query($link, "select * from talk where id>$id");
+
+while ($array = mysqli_fetch_assoc($data)) {
+
+ $info[] = $array;
+
+};
+
+ echo json_encode($info);
+
+---------------------
+
+本文来自 Lz18310851892 的CSDN 博客 ，全文地址请点击：https://blog.csdn.net/qq_40842615/article/details/80671343?utm_source=copy 
