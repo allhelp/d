@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<title>XsJIONG - 五度空间</title>
+<head>
+<style>
+	@font-face {font-family:'PixelFont'; src:url("Pixel.ttf");}
+</style>
+</head>
+
+<body background="KafuuChino.jpg">
+<div style="width:auto;margin-left:25px;">
+	<p style="font-family:PixelFont;font-size:60px;color:#2196f3;">World</p>
+</div>
+<div style="height:100%;width:100%;padding-left:25px;margin-top:-25px">
+	<p style="color:#2196f3">Xs.JIONG的个人主页</p>
+	<div style="background-color:#2196F3;padding:20px;border-radius:5px;color:#FFFFFF;display:inline-block;*display:inline;*zoom:1;">苟利兮国家</br>渺渺兮生死</br>岂因祸以福</br>退畏避趋之</div>
+	<h2>Links</h2>
+	<div>
+	  <button style="float:left" onclick="window.open('https://github.com/XsJIONG')">我的Github</button>
+	  <button style="float:left" onclick="window.open('https://www.luogu.org/space/show?uid=45182')">我的洛谷</button>
+	</div>
+	</br>
+	<h2>Softwares</h2>
+	<div>
+	  <a style="text-decoration: none;" href="https://github.com/git-for-windows/git/releases/download/v2.17.0.windows.1/Git-2.17.0-64-bit.exe">Git Bash 64</a>
+	  <a style="text-decoration: none;" href="https://github.com/git-for-windows/git/releases/download/v2.17.0.windows.1/Git-2.17.0-32-bit.exe">Git Bash 32</a>
+	  <a style="text-decoration: none;" href="https://dldir1.qq.com/qqfile/qq/QQ9.0.3/23729/QQ9.0.3.exe">QQ Pc</a>
+	  <a style="text-decoration: none;" href="https://download-ssl.firefox.com.cn/releases-sha2/stub/official/zh-CN/Firefox-latest.exe">FireFox</a>
+	</div>
+	<h2>Music</h2>
+	<div>
+	  <a style="text-decoration: none;" href="http://m7.music.126.net/20180526223247/88a2012ec87d569e08403a010e91fbbb/ymusic/nS4Qc08ChCeJYigwj9t7-w==/509951162929843192">LIFE</a>
+	  <a style="text-decoration: none;" href="http://m8.music.126.net/20180527081744/64e6264327f12b8733f8ae9dcbb47ffd/ymusic/lk3GHnRdXXZ3VDhJGP5neA==/509951162929846507">Eschatology</a>
+	</div>
+	<h2>Others</h2>
+	<div>
+	  <button onclick="pass()">Sth. Interesting</button>
+	  <button onclick="display()">VAN</button>
+	</div>
+</div>
+<iframe width="1000px" height="600px" style="visibility:hidden" id="BiliPlayer" src="//player.bilibili.com/player.html?aid=14157813&cid=23111430&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<script>
+  function pass() {
+    var p=prompt("Password");
+	if (p!="KafuuChino") {alert("少年郎，回去吧，你不属于这里");return;}
+	window.open('/ASDF.html');
+  }
+  var a=false;
+  function display() {
+    var q=document.getElementById("BiliPlayer");
+    q.style.visibility=a?"hidden":"visible";
+    a=!a;
+  }
+</script>
+</body>
+
+</html>
